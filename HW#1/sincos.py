@@ -7,5 +7,4 @@ y = np.sin(x)
 z = np.cos(x)
 
 plt.plot(x, y, x, z)
-
 plt.show()
