@@ -26,7 +26,7 @@ class MyHTMLParser(HTMLParser):
 
 
 myParser = MyHTMLParser()
-for i in range(10):
+for i in range(50):
     r = requests.get("https://theyfightcrime.org")
     myParser.feed(r.text)
     myParser.clean()
