@@ -1,8 +1,6 @@
 import requests
 from html.parser import HTMLParser
-
-his = []
-hers = []
+import os
 
 
 class MyHTMLParser(HTMLParser):
@@ -17,19 +15,25 @@ class MyHTMLParser(HTMLParser):
             pass
 
     def handle_data(self, data):
-        if self.currentTag == "p" and data.startswith('He'):
-            his.append(data)
-            # hers.append(data.split('.')[1])
+        if self.currentTag == "p" and data.startswith("He"):
+            she = data.find("She")
+            end = data.find("They")
+            with open('his.txt', 'a+') as f:
+                f.write(data[0:she]+"\n")
+            with open('her.txt', 'a+') as f:
+                f.write(data[she:end]+"\n")
 
     def clean(self):
         self.reset()
 
 
-myParser = MyHTMLParser()
-for i in range(50):
-    r = requests.get("https://theyfightcrime.org")
-    myParser.feed(r.text)
-    myParser.clean()
-
-for i in his:
-    print(i)
+if __name__ == "__main__":
+    if os.path.exists('his.txt'):
+        os.remove('his.txt')
+    if os.path.exists('her.txt'):
+        os.remove('her.txt')
+    myParser = MyHTMLParser()
+    for i in range(50):
+        r = requests.get("https://theyfightcrime.org")
+        myParser.feed(r.text)
+        myParser.clean()
