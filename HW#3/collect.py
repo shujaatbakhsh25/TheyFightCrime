@@ -19,11 +19,13 @@ def aggregate(gender):
         if gender == "female":
             if not i.startswith(".") and re.search(r'.*(she|her\.|female).*', i, re.IGNORECASE):
                 with open(os.path.join(os.getcwd(), "data", i)) as fR:
+                    fW.write('\n')
                     for line in fR:
                         fW.write(line)
         elif gender == "male":
             if not i.startswith(".") and not re.search(r'.*(she|her\.|female).*', i, re.IGNORECASE):
                 with open(os.path.join(os.getcwd(), "data", i)) as fR:
+                    fW.write('\n')
                     for line in fR:
                         fW.write(line)
 
